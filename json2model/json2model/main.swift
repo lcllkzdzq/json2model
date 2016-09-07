@@ -13,8 +13,6 @@ import Foundation
 
 
 let io = IO()
-let parser = Parser()
-parser.io = io
 
 let path = Process.arguments[1] as NSString
 
@@ -22,16 +20,20 @@ if let jsonData = NSData(contentsOfFile: path.stringByExpandingTildeInPath) {
     do {
         let result = try NSJSONSerialization.JSONObjectWithData(jsonData, options: .AllowFragments)
 
-        if result.isKindOfClass(NSDictionary.self) {
-            parser.objectScan(result as! Dictionary)
-        } else if result.isKindOfClass(NSArray.self) {
-            parser.arrayScan(result as! Array)
-        } else {
-
-        }
+        let rootNode = NodeFactory.createNode(result)
 
     } catch {
 
+    }
+}
+
+func emulateNode(node: Node) {
+    if let subnodes = node.subNodes() {
+        for subnode in subnodes {
+            emulateNode(subnode)
+        }
+    } else {
+        return
     }
 }
 
