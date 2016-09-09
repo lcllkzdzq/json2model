@@ -9,13 +9,13 @@
 import Foundation
 
 class NodeFactory {
-    class func createNode(from: AnyObject) -> Node {
+    class func createNode(from: AnyObject, parent: Node?) -> Node {
         if from.isKindOfClass(NSDictionary.self) {
-            return ObjectNode(dic: from as! Dictionary)
+            return ObjectNode(dic: from as! Dictionary, parent: parent)
         } else if from.isKindOfClass(NSArray.self) {
-            return ArrayNode(array: from as! Array)
+            return ArrayNode(array: from as! Array, parent: parent)
         } else {
-            return BasicNode(obj: from)
+            return BasicNode(obj: from, parent: parent)
         }
     }
 }

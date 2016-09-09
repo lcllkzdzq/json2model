@@ -10,18 +10,23 @@ import Foundation
 
 class ObjectNode: Node {
     var dic = Dictionary<String, AnyObject>()
+    var type: NodeType = .ObjectNode
+    var subnodes : Array<Node>? = Array<Node>()
+    var parentNode: Node?
 
-    init(dic: Dictionary<String, AnyObject>) {
+    init(dic: Dictionary<String, AnyObject>, parent : Node?) {
         self.dic = dic
-    }
-
-    func subNodes() -> Array<Node>? {
-        var nodeArray = Array<Node>()
+        self.parentNode = parent
 
         for (_, value) in dic {
-            nodeArray.append(NodeFactory.createNode(value))
+            subnodes!.append(NodeFactory.createNode(value, parent: self))
         }
-
-        return nodeArray
     }
+
+    var originalData: AnyObject {
+        get {
+            return dic
+        }
+    }
+
 }

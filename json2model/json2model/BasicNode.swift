@@ -9,10 +9,20 @@
 import Foundation
 
 class BasicNode: Node {
-    init(obj: AnyObject) {
+    var object : AnyObject
+    var type: NodeType
+    var subnodes : Array<Node>? = nil
+    var parentNode: Node?
+
+    init(obj: AnyObject, parent : Node?) {
+        self.object = obj
+        self.type = .StringNode
+        self.parentNode = parent
     }
 
-    func subNodes() -> Array<Node>? {
-        return nil
+    var originalData: AnyObject {
+        get {
+            return object
+        }
     }
 }

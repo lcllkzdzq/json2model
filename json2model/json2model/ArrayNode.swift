@@ -10,18 +10,23 @@ import Foundation
 
 class ArrayNode: Node {
     var array = Array<AnyObject>()
-
-    init(array: Array<AnyObject>) {
+    var type: NodeType = .ArrayNode
+    var subnodes : Array<Node>? = Array<Node>()
+    var parentNode: Node?
+    
+    init(array: Array<AnyObject>, parent : Node?) {
         self.array = array
-    }
-
-    func subNodes() -> Array<Node>? {
-        var nodeArray = Array<Node>()
+        self.parentNode = parent
 
         for value in array {
-            nodeArray.append(NodeFactory.createNode(value))
+            subnodes!.append(NodeFactory.createNode(value, parent: self))
         }
-
-        return nodeArray
     }
+
+    var originalData: AnyObject {
+        get {
+            return array;
+        }
+    }
+
 }

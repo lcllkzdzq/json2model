@@ -8,6 +8,19 @@
 
 import Foundation
 
+enum NodeType : String {
+    case ObjectNode = "Object"
+    case ArrayNode = "Array"
+    case StringNode = "String"
+    case NumberNode = "Number"
+    case BoolNode = "Bool"
+    case NullNode = "Null"
+}
+
 protocol Node {
-    func subNodes() -> Array<Node>?
+    var type : NodeType { get }
+    var subnodes : Array<Node>? { get }
+    var parentNode : Node? { get }
+
+    var originalData : AnyObject { get }
 }

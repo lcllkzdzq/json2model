@@ -8,10 +8,6 @@
 
 import Foundation
 
-
-
-
-
 let io = IO()
 
 let path = Process.arguments[1] as NSString
@@ -20,20 +16,11 @@ if let jsonData = NSData(contentsOfFile: path.stringByExpandingTildeInPath) {
     do {
         let result = try NSJSONSerialization.JSONObjectWithData(jsonData, options: .AllowFragments)
 
-        let rootNode = NodeFactory.createNode(result)
+        let tree = NodeTree(data: result);
+        tree.createObjectIndex()
 
     } catch {
 
-    }
-}
-
-func emulateNode(node: Node) {
-    if let subnodes = node.subNodes() {
-        for subnode in subnodes {
-            emulateNode(subnode)
-        }
-    } else {
-        return
     }
 }
 
