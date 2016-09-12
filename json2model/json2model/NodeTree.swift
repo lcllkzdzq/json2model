@@ -18,8 +18,8 @@ class NodeTree {
 
     func createObjectIndex() {
         emulateNode(rootNode) { (node) in
-            if node.dynamicType == ObjectNode.self {
-                print(node.originalData)
+            if node.dynamicType == ObjectNode.self && self.nodeParentInArray(node){
+
             }
         }
     }
@@ -33,5 +33,16 @@ class NodeTree {
         } else {
             return
         }
+    }
+
+    func nodeParentInArray(node: Node) -> Bool {
+        objectArray.append(node)
+
+        objectArray.filter { (arrayNode) -> Bool in
+            return true
+        }
+
+
+        return true;
     }
 }
